@@ -1,0 +1,6 @@
+{
+  "name": "BE IT NOW",
+  "description": "BE IT NOW - High-performance athletic & discipline planner with boxing timer, gym log, and streak gamification.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
