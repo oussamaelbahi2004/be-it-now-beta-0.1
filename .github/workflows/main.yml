@@ -1,0 +1,62 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Generate Gradle Wrapper
+      run: gradle wrapper
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Generate Debug Keystore
+      run: keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "C=US, O=Android, CN=Android Debug"
+
+    - name: Create google-services.json
+      run: |
+        cat << EOF > app/google-services.json
+        {
+          "project_info": {
+            "project_number": "220622723501",
+            "project_id": "lalo-b312c",
+            "storage_bucket": "lalo-b312c.firebasestorage.app"
+          },
+          "client": [
+            {
+              "client_info": {
+                "mobilesdk_app_id": "1:220622723501:android:88e152346f83b00cd06924",
+                "android_client_info": { "package_name": "com.aistudio.beitnow.app" }
+              },
+              "oauth_client": [],
+              "api_key": [ { "current_key": "AIzaSyAgoqSIkddXN0Kd8dJ64LxyQfe-93p0OlU" } ],
+              "services": { "appinvite_service": { "other_platform_oauth_client": [] } }
+            }
+          ],
+          "configuration_version": "1"
+        }
+        EOF
+
+    - name: Build with Gradle
+      run: ./gradlew assembleDebug -Djava.awt.headless=true
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: BE_IT_NOW_App
+        path: app/build/outputs/apk/debug/app-debug.apk
