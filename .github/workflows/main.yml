@@ -25,8 +25,35 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
+    - name: Generate Debug Keystore (حل المشكل الأول)
+      run: keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "C=US, O=Android, CN=Android Debug"
+
+    - name: Create google-services.json (حل المشكل الثاني)
+      run: |
+        cat << EOF > app/google-services.json
+        {
+          "project_info": {
+            "project_number": "220622723501",
+            "project_id": "lalo-b312c",
+            "storage_bucket": "lalo-b312c.firebasestorage.app"
+          },
+          "client": [
+            {
+              "client_info": {
+                "mobilesdk_app_id": "1:220622723501:android:88e152346f83b00cd06924",
+                "android_client_info": { "package_name": "com.example.ui.theme" }
+              },
+              "oauth_client": [],
+              "api_key": [ { "current_key": "AIzaSyAgoqSIkddXN0Kd8dJ64LxyQfe-93p0OlU" } ],
+              "services": { "appinvite_service": { "other_platform_oauth_client": [] } }
+            }
+          ],
+          "configuration_version": "1"
+        }
+        EOF
+
     - name: Build with Gradle
-      run: ./gradlew assembleDebug
+      run: ./gradlew assembleDebug -Djava.awt.headless=true
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
