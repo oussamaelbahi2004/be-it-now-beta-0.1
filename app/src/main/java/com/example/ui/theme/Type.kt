@@ -9,13 +9,27 @@ import androidx.compose.ui.unit.sp
 import com.example.R
 
 val BebasNeueFontFamily = FontFamily(
+    Font(R.font.bebas_neue, FontWeight.Thin),
+    Font(R.font.bebas_neue, FontWeight.ExtraLight),
+    Font(R.font.bebas_neue, FontWeight.Light),
     Font(R.font.bebas_neue, FontWeight.Normal),
-    Font(R.font.bebas_neue, FontWeight.Bold)
+    Font(R.font.bebas_neue, FontWeight.Medium),
+    Font(R.font.bebas_neue, FontWeight.SemiBold),
+    Font(R.font.bebas_neue, FontWeight.Bold),
+    Font(R.font.bebas_neue, FontWeight.ExtraBold),
+    Font(R.font.bebas_neue, FontWeight.Black)
 )
 
 val MontserratFontFamily = FontFamily(
+    Font(R.font.montserrat_bold, FontWeight.Thin),
+    Font(R.font.montserrat_bold, FontWeight.ExtraLight),
+    Font(R.font.montserrat_bold, FontWeight.Light),
     Font(R.font.montserrat_bold, FontWeight.Normal),
-    Font(R.font.montserrat_bold, FontWeight.Bold)
+    Font(R.font.montserrat_bold, FontWeight.Medium),
+    Font(R.font.montserrat_bold, FontWeight.SemiBold),
+    Font(R.font.montserrat_bold, FontWeight.Bold),
+    Font(R.font.montserrat_bold, FontWeight.ExtraBold),
+    Font(R.font.montserrat_bold, FontWeight.Black)
 )
 
 val Typography = Typography(
@@ -125,4 +139,6 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     )
 )
+
+
 
